@@ -8,6 +8,7 @@
     <title>Document</title>
     <script src="../javascript/get-movies.js" type="module"></script>
     <script src="../javascript/constants.js" type="module"></script>
+    <script src="../javascript/get-movie.js" type="module"></script>
 </head>
 <body>
     <header>
@@ -63,6 +64,8 @@
 </body>
 <script type="module">
     import { get_movies } from '../javascript/get-movies.js';
+    import { get_movie } from '../javascript/get-movie.js';
+
 
     const createImag = (movie) => {
         const imag = movie.primaryImage.url
@@ -72,7 +75,6 @@
         imgElement.alt = alternativeText
         return imgElement  
     }
-
 
     get_movies()
         .then((data) => {
@@ -87,6 +89,9 @@
                 buttonElement.textContent = "View"
                 buttonElement.className = "schedules"
                 buttonElement.setAttribute('data-movie-id', movie.id)
+                buttonElement.onclick = () => {
+                    get_movie(movie.id).then(data => console.log(data))
+                }
                 container.appendChild(buttonElement)
 
                 const element = document.getElementById("movie-list");
