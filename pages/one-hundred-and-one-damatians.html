@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css"/>
+    <title>Document</title>
+    <script src="../javascript/get-movie.js" type="module"></script>
+    <script src="../javascript/constants.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="about-us">
+            <div class="social-media">
+                <img src="../resources/icons/facebook.png">
+                <img src="../resources/icons/twitter.png">
+                <img src="../resources/icons/instagram.png">
+            </div>
+            <div></div>
+            <div class="login">
+                <button class="sign-up">Sign Up</button>
+                <button class="log-in">Log in</button>
+            </div>
+        </nav>
+        <nav class="shop-options">
+            <img class="logo" src="../resources/images/cinemark_logo.png" />
+            <nav class="options">
+                <h3>Billboard</h3>
+                <h3>Theaters</h3>
+                <h3>Snackbar</h3>
+                <h3>Promotions</h3>
+            </nav>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <button class="more-information">More Information</button>
+    </div>
+
+    <div class="filter">
+        <div class="city-filter">
+            <h3>You are in:</h2>
+            <select required aria-placeholder="Value2">
+                <option value="None" hidden>None</option>
+                <option value="value2">Value 2</option>
+                <option value="value3">Value 3</option>
+            </select>
+        </div>
+        <div class="local-filter">
+            <h3>Theaters:</h2>
+            <select required aria-placeholder="Value2">
+                <option value="None" hidden>None</option>
+                <option value="value2">Value 2</option>
+                <option value="value3">Value 3</option>
+            </select>
+        </div>
+    </div>
+
+    <h1>One Hundred and One Dalmatians</h1>
+    <div class="movie-details" id="movie-details">
+        <img id="movie-img" height="450px" width="300px">
+        <div id="info-container">
+            <h3>NAME</h3>
+                <p id="content-name"></p>
+            <hr>
+            <h3>GENRES</h3>
+                <p id="content-genres"></p>
+            <hr>
+            <h3>SINOPSIS</h3>
+                <p id="content-sinopsis"></p>
+            <hr>
+            <h3>DURATION</h3>
+                <p id="content-duration"></p>
+        </div>
+    </div>
+</body>
+<script type="module">
+    import { get_movie } from '../javascript/get-movie.js';
+
+    get_movie("tt0055254").then((data) => {
+
+        const infoContainer = document.getElementById("info-container")
+        const imageElement = document.getElementById("movie-img")
+        const container = document.getElementById("movie-details")
+        const contentName = document.getElementById("content-name")
+        const contentGenres = document.getElementById("content-genres")
+        const contentSinopsis = document.getElementById("content-sinopsis")
+        const contentDuration = document.getElementById("content-duration")
+    
+        const img = data.primaryImage.url
+        const alternativeText = data.primaryImage.caption.plainText
+        const movieName = data.titleText.text
+        const movieGenres = data.genres.genres.map(genreObject => genreObject.text).join(", ")
+        const movieSinopsis = data.plot.plotText.plainText
+        const movieSecondsDuration = data.runtime.seconds
+        const movieHoursDuration = Math.round(movieSecondsDuration / 3600)
+        const movieMinutesDuration = (movieSecondsDuration % 3600) / 60
+        const movieDuration = `0${movieHoursDuration}:${movieMinutesDuration}`
+        
+        imageElement.src = img
+        imageElement.alt = alternativeText
+        contentName.textContent = movieName
+        contentGenres.textContent = movieGenres
+        contentSinopsis.textContent = movieSinopsis
+        contentDuration.textContent = movieDuration
+        
+        container.appendChild(imageElement)
+        container.appendChild(infoContainer)
+
+    })
+</script>
+<footer>
+    <div class="about-us">
+        <h2>About</h2>
+        <h3>Who are we?</h3>
+        <h3>Terms and Conditions</h3>
+    </div>
+    <div class="contact-us">
+        <h2>Contact us</h2>
+        <h3>FAQs</h3>
+    </div>
+    <div class="maketing-empresarial">
+        <h2>Marketing</h2>
+        <h3>Services</h3>
+    </div>
+    <div class="downloads">
+        <h2>Download our App</h2>
+    </div>
+    <div class="apps">
+        <img src="../resources/icons/facebook-red.png" alt="">
+        <img src="../resources/icons/twitter-red.png" alt="">
+        <img src="../resources/icons/instagram-red.png" alt="">
+    </div>
+</footer>
+</html>
