@@ -214,3 +214,20 @@ footer div.apps > img {
     margin: 3% 10px
     
 }
+/* movie-details */
+div.movie-details {
+    display: flex;
+    padding-left: 150px;
+    padding-right: 150px;
+
+}
+
+#info-container {
+    padding-left: 50px;
+    padding-right: 50px;
+
+}
+
+hr {
+    border-style: dotted;
+}
